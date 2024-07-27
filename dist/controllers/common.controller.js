@@ -37,4 +37,14 @@ const getMenu = (0, catchAsync_1.default)(async (req, res) => {
         res.status(http_status_1.default.INTERNAL_SERVER_ERROR).send(error);
     }
 });
-exports.default = { addSingleFile, generateAlias, getMenu };
+const getSearchResult = (0, catchAsync_1.default)(async (req, res) => {
+    try {
+        const searchResult = await common_service_1.default.getSearchResult(req.body.keyword);
+        res.status(http_status_1.default.OK).send(searchResult);
+    }
+    catch (error) {
+        logger_1.default.error(error);
+        res.status(http_status_1.default.INTERNAL_SERVER_ERROR).send(error);
+    }
+});
+exports.default = { addSingleFile, generateAlias, getMenu, getSearchResult };

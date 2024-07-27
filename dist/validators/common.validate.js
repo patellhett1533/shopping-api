@@ -9,4 +9,9 @@ const generateAlias = {
         name: joi_1.default.string().required(),
     }),
 };
-exports.default = { generateAlias };
+const getSearchResult = {
+    body: joi_1.default.object({
+        keyword: joi_1.default.string().required(),
+    }),
+};
+exports.default = { generateAlias, getSearchResult };

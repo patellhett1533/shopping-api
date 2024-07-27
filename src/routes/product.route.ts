@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.post(
   "/",
-  auth(),
   validate(productValidation.addProductSchema),
   productController.addProduct
 );
@@ -39,14 +38,12 @@ router.get(
 
 router.put(
   "/:id",
-  auth(),
   validate(productValidation.updateProductSchema),
   productController.updateProduct
 );
 
 router.delete(
   "/:id",
-  auth(),
   validate(productValidation.deleteProductSchema),
   productController.deleteProduct
 );

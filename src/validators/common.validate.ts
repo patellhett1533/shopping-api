@@ -7,4 +7,10 @@ const generateAlias: ValidationSchema = {
   }),
 };
 
-export default { generateAlias };
+const getSearchResult: ValidationSchema = {
+  body: Joi.object({
+    keyword: Joi.string().required(),
+  }),
+};
+
+export default { generateAlias, getSearchResult };

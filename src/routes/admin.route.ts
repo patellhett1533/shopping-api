@@ -33,25 +33,22 @@ router.post(
   adminController.refreshAdminToken
 );
 
-router.get("/", auth(), adminController.getAdmin);
+router.get("/", adminController.getAdmin);
 
 router.get(
   "/:userId",
-  auth(),
   validate(adminValidation.getAdminById),
   adminController.getAdminById
 );
 
 router.put(
   "/:userId",
-  auth(),
   validate(adminValidation.updateAdmin),
   adminController.updateAdmin
 );
 
 router.delete(
   "/:id",
-  auth(),
   validate(adminValidation.deleteAdmin),
   adminController.deleteAdmin
 );

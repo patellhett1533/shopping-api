@@ -13,4 +13,5 @@ const router = express_1.default.Router();
 router.post("/upload-single", multer_1.default.single("image"), common_controller_1.default.addSingleFile);
 router.post("/generate-alias", (0, validate_1.default)(common_validate_1.default.generateAlias), common_controller_1.default.generateAlias);
 router.get("/menu", (0, auth_1.default)(), common_controller_1.default.getMenu);
+router.post("/search", (0, validate_1.default)(common_validate_1.default.getSearchResult), common_controller_1.default.getSearchResult);
 exports.default = router;

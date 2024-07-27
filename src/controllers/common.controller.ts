@@ -34,4 +34,14 @@ const getMenu = catchAsync(async (req: Request, res: Response) => {
   }
 });
 
-export default { addSingleFile, generateAlias, getMenu };
+const getSearchResult = catchAsync(async (req: Request, res: Response) => {
+  try {
+    const searchResult = await commonService.getSearchResult(req.body.keyword);
+    res.status(httpStatus.OK).send(searchResult);
+  } catch (error) {
+    logger.error(error);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
+  }
+});
+
+export default { addSingleFile, generateAlias, getMenu, getSearchResult };

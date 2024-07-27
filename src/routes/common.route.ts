@@ -21,4 +21,10 @@ router.post(
 
 router.get("/menu", auth(), commonController.getMenu);
 
+router.post(
+  "/search",
+  validate(commonValidate.getSearchResult),
+  commonController.getSearchResult
+);
+
 export default router;
