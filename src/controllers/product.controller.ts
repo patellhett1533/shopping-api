@@ -34,6 +34,11 @@ const getProductByAlias = catchAsync(async (req: Request, res: Response) => {
   res.status(httpStatus.OK).send(product);
 });
 
+const getProductsByIds = catchAsync(async (req: Request, res: Response) => {
+  const products = await productService.getProductsByIds(req.body.ids);
+  res.status(httpStatus.OK).send(products);
+});
+
 const updateProduct = catchAsync(async (req: Request, res: Response) => {
   const product = await productService.updateProduct(req.params.id, req.body);
   res.status(httpStatus.OK).send(product);
@@ -50,6 +55,7 @@ export default {
   getAllActiveProducts,
   getProductById,
   getProductByAlias,
+  getProductsByIds,
   updateProduct,
   deleteProduct,
 };

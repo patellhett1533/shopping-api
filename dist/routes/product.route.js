@@ -13,6 +13,7 @@ router.get("/", (0, validate_1.default)(product_validate_1.default.getAllProduct
 router.get("/active", (0, validate_1.default)(product_validate_1.default.getAllProductsSchema), product_controller_1.default.getAllActiveProducts);
 router.get("/:id", (0, validate_1.default)(product_validate_1.default.getProductSchema), product_controller_1.default.getProductById);
 router.get("/alias/:alias", (0, validate_1.default)(product_validate_1.default.getProductByAliasSchema), product_controller_1.default.getProductByAlias);
+router.post("/array", (0, validate_1.default)(product_validate_1.default.getProductsByIdsSchema), product_controller_1.default.getProductsByIds);
 router.put("/:id", (0, validate_1.default)(product_validate_1.default.updateProductSchema), product_controller_1.default.updateProduct);
 router.delete("/:id", (0, validate_1.default)(product_validate_1.default.deleteProductSchema), product_controller_1.default.deleteProduct);
 exports.default = router;

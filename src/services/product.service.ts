@@ -1,3 +1,4 @@
+import logger from "../config/logger";
 import { ProductTypes, ProductWithId } from "../interface/common.interface";
 import Product from "../models/product.model";
 import QueryString from "qs";
@@ -36,6 +37,13 @@ const getProductByAlias = async (alias: string) => {
   return await Product.findOne({ alias });
 };
 
+const getProductsByIds = async (ids: [string]) => {
+  const products = await Product.find({ _id: { $in: ids } }).select(
+    "id name price thumbnail_image"
+  );
+  return products;
+};
+
 const updateProduct = async (id: string, product: ProductTypes) => {
   return await Product.findByIdAndUpdate(id, product, { new: true });
 };
@@ -49,6 +57,7 @@ export default {
   queryProducts,
   getAllProducts,
   getProductById,
+  getProductsByIds,
   getProductByAlias,
   updateProduct,
   deleteProduct,

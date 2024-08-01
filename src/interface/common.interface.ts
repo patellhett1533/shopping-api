@@ -52,6 +52,17 @@ export interface ProductTypes {
   is_active: boolean;
 }
 
+export interface OrderTypes {
+  name: string;
+  email: string;
+  phone: string;
+  product_id: string[];
+  amount: number;
+  payment_id: string;
+  payment_status: boolean;
+  status: boolean;
+}
+
 export interface ServiceTypes {
   name: string;
   description: string;

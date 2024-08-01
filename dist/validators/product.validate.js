@@ -49,6 +49,11 @@ const getProductByAliasSchema = {
         alias: joi_1.default.string().required(),
     }),
 };
+const getProductsByIdsSchema = {
+    body: joi_1.default.object({
+        ids: joi_1.default.array().items(joi_1.default.string()),
+    }),
+};
 const updateProductSchema = {
     params: joi_1.default.object({
         id: joi_1.default.string().required(),
@@ -90,6 +95,7 @@ exports.default = {
     getAllProductsSchema,
     getProductSchema,
     getProductByAliasSchema,
+    getProductsByIdsSchema,
     updateProductSchema,
     deleteProductSchema,
 };

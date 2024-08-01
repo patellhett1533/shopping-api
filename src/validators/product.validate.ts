@@ -52,6 +52,12 @@ const getProductByAliasSchema: ValidationSchema = {
   }),
 };
 
+const getProductsByIdsSchema: ValidationSchema = {
+  body: Joi.object({
+    ids: Joi.array().items(Joi.string()),
+  }),
+};
+
 const updateProductSchema: ValidationSchema = {
   params: Joi.object({
     id: Joi.string().required(),
@@ -97,6 +103,7 @@ export default {
   getAllProductsSchema,
   getProductSchema,
   getProductByAliasSchema,
+  getProductsByIdsSchema,
   updateProductSchema,
   deleteProductSchema,
 };

@@ -11,11 +11,16 @@ const faq_route_1 = __importDefault(require("./faq.route"));
 const review_route_1 = __importDefault(require("./review.route"));
 const content_route_1 = __importDefault(require("./content.route"));
 const service_route_1 = __importDefault(require("./service.route"));
+const order_route_1 = __importDefault(require("./order.route"));
 const router = express_1.default.Router();
 const defaultRoutes = [
     {
         path: "/product",
         route: product_route_1.default,
+    },
+    {
+        path: "/order",
+        route: order_route_1.default,
     },
     {
         path: "/common",

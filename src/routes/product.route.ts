@@ -36,6 +36,12 @@ router.get(
   productController.getProductByAlias
 );
 
+router.post(
+  "/array",
+  validate(productValidation.getProductsByIdsSchema),
+  productController.getProductsByIds
+);
+
 router.put(
   "/:id",
   validate(productValidation.updateProductSchema),

@@ -24,6 +24,10 @@ const getProductById = async (id) => {
 const getProductByAlias = async (alias) => {
     return await product_model_1.default.findOne({ alias });
 };
+const getProductsByIds = async (ids) => {
+    const products = await product_model_1.default.find({ _id: { $in: ids } }).select("id name price thumbnail_image");
+    return products;
+};
 const updateProduct = async (id, product) => {
     return await product_model_1.default.findByIdAndUpdate(id, product, { new: true });
 };
@@ -35,6 +39,7 @@ exports.default = {
     queryProducts,
     getAllProducts,
     getProductById,
+    getProductsByIds,
     getProductByAlias,
     updateProduct,
     deleteProduct,
