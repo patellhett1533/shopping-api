@@ -7,6 +7,7 @@ import reviewRoute from "./review.route";
 import contentRoute from "./content.route";
 import serviceRoute from "./service.route";
 import orderRoute from "./order.route";
+import customerRoute from "./customer.route";
 
 const router = express.Router();
 
@@ -42,6 +43,10 @@ const defaultRoutes = [
   {
     path: "/service",
     route: serviceRoute,
+  },
+  {
+    path: "/customer",
+    route: customerRoute,
   },
 ];
 

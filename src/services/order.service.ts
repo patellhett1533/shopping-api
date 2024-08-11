@@ -1,4 +1,3 @@
-import logger from "../config/logger";
 import { OrderTypes } from "../interface/common.interface";
 import Order from "../models/order.model";
 import QueryString from "qs";

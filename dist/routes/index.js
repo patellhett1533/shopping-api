@@ -12,6 +12,7 @@ const review_route_1 = __importDefault(require("./review.route"));
 const content_route_1 = __importDefault(require("./content.route"));
 const service_route_1 = __importDefault(require("./service.route"));
 const order_route_1 = __importDefault(require("./order.route"));
+const customer_route_1 = __importDefault(require("./customer.route"));
 const router = express_1.default.Router();
 const defaultRoutes = [
     {
@@ -45,6 +46,10 @@ const defaultRoutes = [
     {
         path: "/service",
         route: service_route_1.default,
+    },
+    {
+        path: "/customer",
+        route: customer_route_1.default,
     },
 ];
 defaultRoutes.forEach((route) => {

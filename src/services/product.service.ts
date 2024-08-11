@@ -1,4 +1,3 @@
-import logger from "../config/logger";
 import { ProductTypes, ProductWithId } from "../interface/common.interface";
 import Product from "../models/product.model";
 import QueryString from "qs";
