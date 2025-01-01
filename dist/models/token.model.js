@@ -20,8 +20,6 @@ const tokenSchema = new mongoose_1.default.Schema({
         type: String,
         enum: [
             tokens_1.default.REFRESH,
-            tokens_1.default.RESET_PASSWORD,
-            tokens_1.default.VERIFY_EMAIL,
         ],
         required: true,
     },

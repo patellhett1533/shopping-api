@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pick = void 0;
+exports.pick = pick;
 function pick(object, keys) {
     return keys.reduce((obj, key) => {
         if (object && object.hasOwnProperty(key)) {
@@ -9,4 +9,3 @@ function pick(object, keys) {
         return obj;
     }, {});
 }
-exports.pick = pick;

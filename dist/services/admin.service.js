@@ -4,58 +4,58 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_1 = __importDefault(require("http-status"));
-const admin_model_1 = __importDefault(require("../models/admin.model"));
+const user_model_1 = __importDefault(require("../models/user.model"));
 const createApiError_1 = require("../utils/createApiError");
 const token_model_1 = __importDefault(require("../models/token.model"));
 const tokens_1 = __importDefault(require("../config/tokens"));
 const token_service_1 = __importDefault(require("./token.service"));
-const createAdmin = async (admin) => {
-    if (await admin_model_1.default.isEmailTaken(admin.email)) {
+const createUser = async (user) => {
+    if (await user_model_1.default.isEmailTaken(user.email)) {
         throw (0, createApiError_1.createApiError)(http_status_1.default.BAD_REQUEST, "Email already taken");
     }
-    return await admin_model_1.default.create(admin);
+    return await user_model_1.default.create(user);
 };
-const queryAdmins = async (filter, options) => {
-    const admins = await admin_model_1.default.paginate(filter, options);
-    return admins;
+const queryUsers = async (filter, options) => {
+    const users = await user_model_1.default.paginate(filter, options);
+    return users;
 };
-const getAdminById = async (id) => {
-    const admin = await admin_model_1.default.findById(id);
-    if (!admin) {
-        throw (0, createApiError_1.createApiError)(http_status_1.default.NOT_FOUND, "Admin not found");
+const getUserById = async (id) => {
+    const user = await user_model_1.default.findById(id);
+    if (!user) {
+        throw (0, createApiError_1.createApiError)(http_status_1.default.NOT_FOUND, "User not found");
     }
-    return admin;
+    return user;
 };
-const getAdminByEmail = async (email) => {
-    const admin = await admin_model_1.default.findOne({ email });
-    if (!admin) {
-        throw (0, createApiError_1.createApiError)(http_status_1.default.NOT_FOUND, "Admin not found");
+const getUserByEmail = async (email) => {
+    const user = await user_model_1.default.findOne({ email });
+    if (!user) {
+        throw (0, createApiError_1.createApiError)(http_status_1.default.NOT_FOUND, "User not found");
     }
-    return admin;
+    return user;
 };
-const updateAdmin = async (id, admin) => {
-    const existingAdmin = await getAdminById(id);
-    return await existingAdmin.updateOne(admin);
+const updateUser = async (id, user) => {
+    const existingUser = await getUserById(id);
+    return await existingUser.updateOne(user);
 };
-const deleteAdmin = async (id) => {
-    const admin = await admin_model_1.default.findByIdAndDelete(id);
-    return admin;
+const deleteUser = async (id) => {
+    const user = await user_model_1.default.findByIdAndDelete(id);
+    return user;
 };
-const loginAdmin = async (adminBody) => {
-    const admin = await getAdminByEmail(adminBody.email);
-    if (!admin) {
+const loginUser = async (userBody) => {
+    const user = await getUserByEmail(userBody.email);
+    if (!user) {
         throw (0, createApiError_1.createApiError)(http_status_1.default.UNAUTHORIZED, "Invalid email or password");
     }
-    const isPasswordValid = await admin.matchPassword(adminBody.password);
+    const isPasswordValid = await user_model_1.default.matchPassword(userBody.password);
     if (!isPasswordValid) {
         throw (0, createApiError_1.createApiError)(http_status_1.default.UNAUTHORIZED, "Invalid email or password");
     }
-    if (!admin.isVerified) {
+    if (!user.isVerified) {
         throw (0, createApiError_1.createApiError)(http_status_1.default.UNAUTHORIZED, "Please verify your email");
     }
-    return admin;
+    return user;
 };
-const logoutAdmin = async (refreshToken) => {
+const logoutUser = async (refreshToken) => {
     const token = await token_model_1.default.findOneAndDelete({
         token: refreshToken,
         type: tokens_1.default.REFRESH,
@@ -66,10 +66,10 @@ const logoutAdmin = async (refreshToken) => {
     }
     return token;
 };
-const refreshAuthAdmin = async (refreshToken) => {
+const refreshAuthUser = async (refreshToken) => {
     try {
         const refreshTokenDoc = await token_service_1.default.verifyToken(refreshToken, tokens_1.default.REFRESH);
-        const user = await admin_model_1.default.findById(refreshTokenDoc.user);
+        const user = await user_model_1.default.findById(refreshTokenDoc.user);
         if (!user) {
             throw (0, createApiError_1.createApiError)(http_status_1.default.NOT_FOUND, "No user found");
         }
@@ -79,44 +79,44 @@ const refreshAuthAdmin = async (refreshToken) => {
         throw (0, createApiError_1.createApiError)(http_status_1.default.UNAUTHORIZED, "Please authenticate");
     }
 };
-const resetAdminPassword = async (resetPasswordToken, newPassword) => {
+const resetUserPassword = async (resetPasswordToken, newPassword) => {
     try {
         const resetPasswordTokenDoc = await token_service_1.default.verifyToken(resetPasswordToken, tokens_1.default.RESET_PASSWORD);
-        const user = await getAdminById(resetPasswordTokenDoc.user.toString());
+        const user = await getUserById(resetPasswordTokenDoc.user.toString());
         if (!user) {
             throw (0, createApiError_1.createApiError)(http_status_1.default.NOT_FOUND, "No user found");
         }
-        await updateAdmin(user.id, { password: newPassword });
-        return getAdminById(user.id);
+        await updateUser(user.id, { password: newPassword });
+        return getUserById(user.id);
     }
     catch (error) {
         throw (0, createApiError_1.createApiError)(http_status_1.default.UNAUTHORIZED, "Please authenticate");
     }
 };
-const verifyAdminEmail = async (verificationToken) => {
+const verifyUserEmail = async (verificationToken) => {
     try {
         const verificationTokenDoc = await token_service_1.default.verifyToken(verificationToken, tokens_1.default.VERIFY_EMAIL);
-        const user = await getAdminById(verificationTokenDoc.user.toString());
+        const user = await getUserById(verificationTokenDoc.user.toString());
         if (!user) {
             throw (0, createApiError_1.createApiError)(http_status_1.default.NOT_FOUND, "No user found");
         }
-        await updateAdmin(user.id, { isVerified: true });
-        return getAdminById(user.id);
+        await updateUser(user.id, { isVerified: true });
+        return getUserById(user.id);
     }
     catch (error) {
         throw (0, createApiError_1.createApiError)(http_status_1.default.UNAUTHORIZED, "Please authenticate");
     }
 };
 exports.default = {
-    createAdmin,
-    queryAdmins,
-    getAdminById,
-    getAdminByEmail,
-    updateAdmin,
-    deleteAdmin,
-    loginAdmin,
-    logoutAdmin,
-    refreshAuthAdmin,
-    resetAdminPassword,
-    verifyAdminEmail,
+    createUser,
+    queryUsers,
+    getUserById,
+    getUserByEmail,
+    updateUser,
+    deleteUser,
+    loginUser,
+    logoutUser,
+    refreshAuthUser,
+    resetUserPassword,
+    verifyUserEmail,
 };

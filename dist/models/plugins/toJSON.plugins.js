@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// Function to delete nested properties
 const deleteAtPath = (obj, path, index) => {
     if (index === path.length - 1) {
         delete obj[path[index]];
@@ -23,13 +22,11 @@ const toJSONPlugin = (schema) => {
                     deleteAtPath(ret, path.split("."), 0);
                 }
             });
-            // Customize default properties (optional)
             ret.id = ret._id.toString();
             delete ret._id;
             delete ret.__v;
             delete ret.createdAt;
             delete ret.updatedAt;
-            // Apply custom transformation function if provided
             if (transform) {
                 return transform(doc, ret, options);
             }

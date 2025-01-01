@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import passport from "passport";
 import httpStatus from "http-status";
 import { createApiError } from "../utils/createApiError";
-import { AdminTypes } from "../interface/common.interface";
+import { UserTypes } from "../interface/common.interface";
 
 const verifyCallback =
   (
@@ -10,9 +10,8 @@ const verifyCallback =
     resolve: (value?: void | PromiseLike<void>) => void,
     reject: (reason?: any) => void
   ) =>
-  (err: string, user: AdminTypes, info: string) => {
+  (err: string, user: UserTypes, info: string) => {
     if (err || info || !user) {
-      console.log(err, info, user);
       return reject(
         createApiError(httpStatus.UNAUTHORIZED, "Please authenticate")
       );

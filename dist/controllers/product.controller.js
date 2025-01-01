@@ -27,29 +27,14 @@ const getProductById = (0, catchAsync_1.default)(async (req, res) => {
     const product = await product_service_1.default.getProductById(req.params.id);
     res.status(http_status_1.default.OK).send(product);
 });
-const getProductByAlias = (0, catchAsync_1.default)(async (req, res) => {
-    const product = await product_service_1.default.getProductByAlias(req.params.alias);
-    res.status(http_status_1.default.OK).send(product);
-});
 const getProductsByIds = (0, catchAsync_1.default)(async (req, res) => {
     const products = await product_service_1.default.getProductsByIds(req.body.ids);
     res.status(http_status_1.default.OK).send(products);
-});
-const updateProduct = (0, catchAsync_1.default)(async (req, res) => {
-    const product = await product_service_1.default.updateProduct(req.params.id, req.body);
-    res.status(http_status_1.default.OK).send(product);
-});
-const deleteProduct = (0, catchAsync_1.default)(async (req, res) => {
-    const product = await product_service_1.default.deleteProduct(req.params.id);
-    res.status(http_status_1.default.OK).send(product);
 });
 exports.default = {
     addProduct,
     getAllProducts,
     getAllActiveProducts,
     getProductById,
-    getProductByAlias,
     getProductsByIds,
-    updateProduct,
-    deleteProduct,
 };

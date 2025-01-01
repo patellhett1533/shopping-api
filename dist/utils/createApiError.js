@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createApiError = void 0;
+exports.createApiError = createApiError;
 function createApiError(statusCode, message, isOperational = true) {
     const error = new Error(message);
     error.statusCode = statusCode;
@@ -8,4 +8,3 @@ function createApiError(statusCode, message, isOperational = true) {
     Error.captureStackTrace(error, createApiError);
     return error;
 }
-exports.createApiError = createApiError;

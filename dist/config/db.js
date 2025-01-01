@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const logger_1 = __importDefault(require("./logger"));
 const env_1 = __importDefault(require("./env"));
-const MONGO_URI = env_1.default.mongodb.url;
+const MONGO_URI = env_1.default.mongodb;
 const connectDB = async () => {
     (0, mongoose_1.set)("strictQuery", false);
     await (0, mongoose_1.connect)(MONGO_URI)

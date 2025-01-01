@@ -1,7 +1,7 @@
 import { connect, set } from "mongoose";
 import logger from "./logger";
 import env from "./env";
-const MONGO_URI = env.mongodb.url;
+const MONGO_URI = env.mongodb;
 
 const connectDB = async () => {
   set("strictQuery", false);

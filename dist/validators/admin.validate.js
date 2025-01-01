@@ -4,35 +4,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const joi_1 = __importDefault(require("joi"));
-const registerAdmin = {
+const registerUser = {
     body: joi_1.default.object({
         name: joi_1.default.string().required(),
         email: joi_1.default.string().email().required(),
         password: joi_1.default.string().required(),
     }),
 };
-const loginAdminByPassword = {
+const loginUserByPassword = {
     body: joi_1.default.object({
         email: joi_1.default.string().email().required(),
         password: joi_1.default.string().required(),
     }),
 };
-const logoutAdmin = {
+const logoutUser = {
     body: joi_1.default.object({
         refreshToken: joi_1.default.string().required(),
     }),
 };
-const refreshAdminToken = {
+const refreshUserToken = {
     body: joi_1.default.object({
         refreshToken: joi_1.default.string().required(),
     }),
 };
-const forgotAdminPassword = {
+const forgotUserPassword = {
     body: joi_1.default.object({
         email: joi_1.default.string().email().required(),
     }),
 };
-const resetAdminPassword = {
+const resetUserPassword = {
     params: joi_1.default.object({
         token: joi_1.default.string().required(),
     }),
@@ -40,17 +40,17 @@ const resetAdminPassword = {
         password: joi_1.default.string().required(),
     }),
 };
-const verifyAdminEmail = {
+const verifyUserEmail = {
     body: joi_1.default.object({
         token: joi_1.default.string().required(),
     }),
 };
-const getAdminById = {
+const getUserById = {
     params: joi_1.default.object({
         userId: joi_1.default.string().required(),
     }),
 };
-const updateAdmin = {
+const updateUser = {
     params: joi_1.default.object({
         userId: joi_1.default.string().required(),
     }),
@@ -60,20 +60,20 @@ const updateAdmin = {
         password: joi_1.default.string(),
     }),
 };
-const deleteAdmin = {
+const deleteUser = {
     params: joi_1.default.object({
         userId: joi_1.default.string().required(),
     }),
 };
 exports.default = {
-    registerAdmin,
-    loginAdminByPassword,
-    logoutAdmin,
-    refreshAdminToken,
-    forgotAdminPassword,
-    resetAdminPassword,
-    verifyAdminEmail,
-    getAdminById,
-    updateAdmin,
-    deleteAdmin,
+    registerUser,
+    loginUserByPassword,
+    logoutUser,
+    refreshUserToken,
+    forgotUserPassword,
+    resetUserPassword,
+    verifyUserEmail,
+    getUserById,
+    updateUser,
+    deleteUser,
 };

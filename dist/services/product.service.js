@@ -9,8 +9,8 @@ const addProduct = async (product) => {
     return await newProduct.save();
 };
 const queryProducts = async (filter, options) => {
-    const admins = await product_model_1.default.paginate(filter, options);
-    return admins;
+    const users = await product_model_1.default.paginate(filter, options);
+    return users;
 };
 const getAllProducts = async (filter, options) => {
     filter.is_active = "true";
@@ -21,11 +21,8 @@ const getAllProducts = async (filter, options) => {
 const getProductById = async (id) => {
     return await product_model_1.default.findById(id);
 };
-const getProductByAlias = async (alias) => {
-    return await product_model_1.default.findOne({ alias });
-};
 const getProductsByIds = async (ids) => {
-    const products = await product_model_1.default.find({ _id: { $in: ids } }).select("id name price thumbnail_image");
+    const products = await product_model_1.default.find({ _id: { $in: ids } }).select("id name price image");
     return products;
 };
 const updateProduct = async (id, product) => {
@@ -40,7 +37,6 @@ exports.default = {
     getAllProducts,
     getProductById,
     getProductsByIds,
-    getProductByAlias,
     updateProduct,
     deleteProduct,
 };

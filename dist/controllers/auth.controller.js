@@ -3,13 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const admin_service_1 = __importDefault(require("../services/admin.service"));
+const user_service_1 = __importDefault(require("../services/user.service"));
 const auth_service_1 = __importDefault(require("../services/auth.service"));
 const token_service_1 = __importDefault(require("../services/token.service"));
 const httpStatus = require("http-status");
 const catchAsync = require("../utils/catchAsync");
 const register = catchAsync(async (req, res) => {
-    const user = await admin_service_1.default.createAdmin(req.body);
+    const user = await user_service_1.default.createUser(req.body);
     const token = await token_service_1.default.generateAuthTokens(user.id);
     res.status(httpStatus.CREATED).send({ user, token });
 });
@@ -35,10 +35,6 @@ const resetPassword = catchAsync(async (req, res) => {
     await auth_service_1.default.resetPassword(req.query.token, req.body.password);
     res.status(httpStatus.NO_CONTENT).send();
 });
-const verifyEmail = catchAsync(async (req, res) => {
-    await auth_service_1.default.verifyEmail(req.query.token);
-    res.status(httpStatus.NO_CONTENT).send();
-});
 exports.default = {
     register,
     login,
@@ -46,5 +42,4 @@ exports.default = {
     refreshTokens,
     forgotPassword,
     resetPassword,
-    verifyEmail,
 };

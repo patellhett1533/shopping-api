@@ -12,7 +12,10 @@ const enumerateErrorFormat = winston_1.default.format((info) => {
 });
 const logger = winston_1.default.createLogger({
     level: "debug",
-    format: winston_1.default.format.combine(enumerateErrorFormat(), winston_1.default.format.colorize(), winston_1.default.format.splat(), winston_1.default.format.printf(({ level, message }) => `${level}: ${message}`)),
+    format: winston_1.default.format.combine(enumerateErrorFormat(), winston_1.default.format.colorize(), winston_1.default.format.splat(), winston_1.default.format.printf((info) => {
+        const { level, message } = info;
+        return `${level}: ${message}`;
+    })),
     transports: [
         new winston_1.default.transports.Console({
             stderrLevels: ["error"],

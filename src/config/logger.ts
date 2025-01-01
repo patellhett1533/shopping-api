@@ -13,10 +13,10 @@ const logger = winston.createLogger({
     enumerateErrorFormat(),
     winston.format.colorize(),
     winston.format.splat(),
-    winston.format.printf(
-      ({ level, message }: { level: string; message: string }) =>
-        `${level}: ${message}`
-    )
+    winston.format.printf((info: winston.Logform.TransformableInfo) => {
+      const { level, message } = info;
+      return `${level}: ${message}`;
+    })
   ),
   transports: [
     new winston.transports.Console({

@@ -11,8 +11,8 @@ const queryProducts = async (
   filter: Pick<QueryString.ParsedQs, "name">,
   options: Pick<QueryString.ParsedQs, "sortBy" | "limit" | "page" | "search">
 ) => {
-  const admins = await Product.paginate(filter, options);
-  return admins;
+  const users = await Product.paginate(filter, options);
+  return users;
 };
 
 const getAllProducts = async (
@@ -32,13 +32,9 @@ const getProductById = async (id: string) => {
   return await Product.findById(id);
 };
 
-const getProductByAlias = async (alias: string) => {
-  return await Product.findOne({ alias });
-};
-
 const getProductsByIds = async (ids: [string]) => {
   const products = await Product.find({ _id: { $in: ids } }).select(
-    "id name price thumbnail_image"
+    "id name price image"
   );
   return products;
 };
@@ -57,7 +53,6 @@ export default {
   getAllProducts,
   getProductById,
   getProductsByIds,
-  getProductByAlias,
   updateProduct,
   deleteProduct,
 };

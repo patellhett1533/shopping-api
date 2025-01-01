@@ -8,7 +8,6 @@ const http_status_1 = __importDefault(require("http-status"));
 const createApiError_1 = require("../utils/createApiError");
 const verifyCallback = (req, resolve, reject) => (err, user, info) => {
     if (err || info || !user) {
-        console.log(err, info, user);
         return reject((0, createApiError_1.createApiError)(http_status_1.default.UNAUTHORIZED, "Please authenticate"));
     }
     req.user = user;

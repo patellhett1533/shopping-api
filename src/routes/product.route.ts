@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post(
   "/",
+  auth(),
   validate(productValidation.addProductSchema),
   productController.addProduct
 );
@@ -19,39 +20,15 @@ router.get(
 );
 
 router.get(
-  "/active",
-  validate(productValidation.getAllProductsSchema),
-  productController.getAllActiveProducts
-);
-
-router.get(
   "/:id",
   validate(productValidation.getProductSchema),
   productController.getProductById
-);
-
-router.get(
-  "/alias/:alias",
-  validate(productValidation.getProductByAliasSchema),
-  productController.getProductByAlias
 );
 
 router.post(
   "/array",
   validate(productValidation.getProductsByIdsSchema),
   productController.getProductsByIds
-);
-
-router.put(
-  "/:id",
-  validate(productValidation.updateProductSchema),
-  productController.updateProduct
-);
-
-router.delete(
-  "/:id",
-  validate(productValidation.deleteProductSchema),
-  productController.deleteProduct
 );
 
 export default router;

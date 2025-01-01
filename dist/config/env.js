@@ -13,19 +13,10 @@ const envVarsSchema = joi_1.default.object()
         .valid("production", "development", "test")
         .required(),
     PROJECT_ID: joi_1.default.string().required(),
-    MONGODB_USER: joi_1.default.string().required(),
-    MONGODB_HOST: joi_1.default.string().allow(""),
-    MONGODB_PASSWORD: joi_1.default.string().allow(""),
-    MONGODB_DATABASE: joi_1.default.string().required(),
-    MONGODB_LOCAL_PORT: joi_1.default.number().required(),
-    MONGODB_DOCKER_PORT: joi_1.default.number().required(),
-    NODE_LOCAL_PORT: joi_1.default.number().required(),
-    NODE_DOCKER_PORT: joi_1.default.number().required(),
+    MONGO_URI: joi_1.default.string().required(),
     JWT_SECRET: joi_1.default.string().required(),
     JWT_ACCESS_EXPIRATION_DAYS: joi_1.default.number().required(),
     JWT_REFRESH_EXPIRATION_DAYS: joi_1.default.number().required(),
-    JWT_RESET_PASSWORD_EXPIRATION_MINUTES: joi_1.default.number().required(),
-    JWT_VERIFY_EMAIL_EXPIRATION_MINUTES: joi_1.default.number().required(),
 })
     .unknown();
 const { value: envVars, error } = envVarsSchema
@@ -43,7 +34,5 @@ exports.default = {
         resetPasswordExpirationMinutes: envVars.JWT_RESET_PASSWORD_EXPIRATION_MINUTES,
         verifyEmailExpirationMinutes: envVars.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES,
     },
-    mongodb: {
-        url: `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_DOCKER_PORT}/${process.env.MONGODB_DATABASE}?authSource=admin`,
-    },
+    mongodb: envVars.MONGO_URI,
 };

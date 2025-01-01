@@ -59,22 +59,8 @@ const generateAuthTokens = async (user) => {
         },
     };
 };
-const generateResetPasswordToken = async (user) => {
-    const expires = (0, moment_1.default)().add(env_1.default.jwt.resetPasswordExpirationMinutes, "minutes");
-    const resetPasswordToken = generateToken(user, expires, tokens_1.default.RESET_PASSWORD);
-    await saveToken(resetPasswordToken, user, expires, tokens_1.default.RESET_PASSWORD);
-    return resetPasswordToken;
-};
-const generateVerifyEmailToken = async (user) => {
-    const expires = (0, moment_1.default)().add(env_1.default.jwt.verifyEmailExpirationMinutes, "minutes");
-    const verifyEmailToken = generateToken(user, expires, tokens_1.default.VERIFY_EMAIL);
-    await saveToken(verifyEmailToken, user, expires, tokens_1.default.VERIFY_EMAIL);
-    return verifyEmailToken;
-};
 exports.default = {
     generateAuthTokens,
-    generateResetPasswordToken,
-    generateVerifyEmailToken,
     verifyToken,
     generateToken,
     saveToken,

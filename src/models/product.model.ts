@@ -1,6 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
 import paginate from "./plugins/paginate.plugins";
-import toJSONPlugin from "./plugins/toJSON.plugins";
 import { ProductTypes } from "../interface/common.interface";
 
 interface ProductModel extends Model<ProductTypes> {
@@ -18,60 +17,25 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    alias: {
-      type: String,
-      required: true,
-    },
     price: {
       type: Number,
       required: true,
     },
-    mrp: {
-      type: Number,
-    },
-    edition: {
-      type: [String],
-    },
-    support_period: {
-      type: [String],
-    },
-    option: {
-      type: [String],
-    },
-    review_count: {
-      type: Number,
-      default: 0,
-    },
-    rating_stars: {
-      type: Number,
-      default: 0,
-    },
-    features: {
-      type: [String],
-    },
-    problem: {
+    image: {
       type: String,
-    },
-    solution: {
-      type: String,
-    },
-    thumbnail_image: {
-      type: { url: String, width: Number, height: Number },
       required: true,
-    },
-    images: {
-      type: [{ url: String, width: Number, height: Number }],
-    },
-    is_active: {
-      type: Boolean,
-      default: true,
     },
   },
   {
-    timestamps: true,
-  }
+    toJSON: {
+        virtuals: true,
+        transform: function(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+        }
+    }
+}
 );
-productSchema.plugin(toJSONPlugin);
 productSchema.plugin(paginate);
 const Product = mongoose.model<ProductTypes, ProductModel>(
   "Product",

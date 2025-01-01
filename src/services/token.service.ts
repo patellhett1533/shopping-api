@@ -81,35 +81,9 @@ const generateAuthTokens = async (user: string) => {
   };
 };
 
-const generateResetPasswordToken = async (user: string) => {
-  const expires = moment().add(
-    env.jwt.resetPasswordExpirationMinutes,
-    "minutes"
-  );
-  const resetPasswordToken = generateToken(
-    user,
-    expires,
-    tokenTypes.RESET_PASSWORD
-  );
-  await saveToken(resetPasswordToken, user, expires, tokenTypes.RESET_PASSWORD);
-  return resetPasswordToken;
-};
-
-const generateVerifyEmailToken = async (user: string) => {
-  const expires = moment().add(env.jwt.verifyEmailExpirationMinutes, "minutes");
-  const verifyEmailToken = generateToken(
-    user,
-    expires,
-    tokenTypes.VERIFY_EMAIL
-  );
-  await saveToken(verifyEmailToken, user, expires, tokenTypes.VERIFY_EMAIL);
-  return verifyEmailToken;
-};
 
 export default {
   generateAuthTokens,
-  generateResetPasswordToken,
-  generateVerifyEmailToken,
   verifyToken,
   generateToken,
   saveToken,
